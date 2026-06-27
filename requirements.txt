@@ -1,0 +1,5 @@
+﻿requests
+PyQt5
+PyQt-Fluent-Widgets
+faster-whisper
+pyinstaller

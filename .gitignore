@@ -1,0 +1,16 @@
+# Build artifacts
+dist/
+build/
+release/
+*.spec
+
+# Local models (too large for git)
+models/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs and temp files
+*.log
