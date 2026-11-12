@@ -22,7 +22,10 @@ function Get-HostShell {
 
 function Get-DshHome {
     param([string]$Override)
-    if ($Override) { return (Resolve-Path -LiteralPath $Override).Path }
+    if ($Override) {
+        if (Test-Path -LiteralPath $Override) { return (Resolve-Path -LiteralPath $Override).Path }
+        return [IO.Path]::GetFullPath($Override)
+    }
     if ($env:DSH_HOME -and (Test-Path $env:DSH_HOME)) { return (Resolve-Path -LiteralPath $env:DSH_HOME).Path }
     $cand = @(
         'E:\逆向\deepseek-harness\.dsh',

@@ -15,6 +15,7 @@ param(
     [switch]$Uninstall,
     [switch]$NoPush,
     [switch]$NoAnchor,
+    [switch]$Offline,
     [string]$TaskName = 'YG-SOUL Autosync'
 )
 . (Join-Path $PSScriptRoot 'lib.ps1')
@@ -91,6 +92,15 @@ if (-not $NoPush) {
             & (Join-Path $PSScriptRoot 'push.ps1') *>&1 | ForEach-Object { Log "  $_" }
         } catch { $fail++; Log "推送失败: $($_.Exception.Message)" 'ERROR' }
     } else { Log '没有令牌，跳过推送（写入 %USERPROFILE%\.yg-soul\token 后自动开启）' 'WARN' }
+}
+
+# ---------- 可运行离线包（可选，-Offline）----------
+if ($Offline) {
+    try {
+        Log '构建离线复活包'
+        & (Join-Path $PSScriptRoot 'offline.ps1') -SkipSnapshot *>&1 | ForEach-Object { Log "  $_" }
+        Get-ChildItem $vault -Filter 'YG-SOUL-offline-*.zip*' | Sort-Object LastWriteTime -Descending | Select-Object -Skip 6 | Remove-Item -Force
+    } catch { $fail++; Log "离线包失败: $($_.Exception.Message)" 'ERROR' }
 }
 
 # ---------- 离线锚点：整包加密，丢 GitHub 也不怕 ----------

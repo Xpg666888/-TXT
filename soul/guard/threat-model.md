@@ -15,7 +15,7 @@
 ```
 第一层  内容层   灵魂 & 配置只在 soul/ 一处，哈希清单为唯一真相
 第二层  平台层   GitHub CI 每次推送重算哈希（防手滑 / 防半路塞东西）
-第三层  离线层   %USERPROFILE%\YG-SOUL-VAULT\*.zip.gcm.json 加密整包，离开账号体系独立存在
+第三层  离线层   %USERPROFILE%\YG-SOUL-VAULT\  可运行的 offline.zip（断网直装）+ 加密归档（防窥）
 ```
 
 **关键认知**：CI 校验和仓库本身在同一个信任域里。攻击者若能 force push，也能顺手改 CI 和清单。
@@ -38,7 +38,7 @@
 ### 3.3 冗余
 - [x] GitHub 仓库 `soul/`
 - [x] 本地加密锚点（每次 autosync 生成，保留最近 5 份）
-- [ ] 异地：把 `YG-SOUL-VAULT\*.zip.gcm.json` 定期扔到网盘 / U 盘 / 邮箱附件 / 另一台机器
+- [x] 可运行离线包：`offline.ps1` 每次构建自带空机试装自测\n- [ ] 异地：把 `YG-SOUL-VAULT\YG-SOUL-offline-*.zip`（或加密版）扔到网盘 / U 盘 / 邮箱 / 另一台机器
 - [ ] 双平台：把 `soul/` 再镜像一份到 Gitee（`gitee.com` 本机可达），避免单一账号风险
 
 ### 3.4 演练

@@ -9,3 +9,5 @@
 {"id":"D-0009","date":"2026-11-13","decision":"推送令牌优先取环境变量/文件，其次用 git credential fill 向系统凭据管理器要，不复制 gh 的 OAuth token 到明文文件","why":"已在 Windows 凭据管理器里有 gh 登录态，复用它即可让每日 autosync 无人值守；少一处明文密钥就少一个泄漏面"}
 {"id":"D-0010","date":"2026-11-13","decision":"push.ps1 改为增量：先取远端 recursive tree，本地算 git blob sha 比对，只上传变化的 blob","why":"166 文件全量推要 166 次 API 调用、约 2 分钟；增量后日常只推 2-5 个 blob，几秒完成"}
 {"id":"D-0011","date":"2026-11-13","decision":"首次落地完成：提交 ecd5d39 -> 00d45ee -> c930b60，soul-verify 工作流三次全部 success","why":"证明 sha256 清单在 CI 侧可验证、远端内容与本地一致；后续任何未带清单的改动都会让 CI 变红"}
+{"id":"D-0012","date":"2026-11-13","decision":"离线包做成「可运行的 zip」而不是只有密文：包根放 START-HERE.cmd + 自包含 bootstrap.ps1，soul 全套在内，另有可选加密归档 + OPEN-PACKAGE.ps1 独立解密器","why":"之前那份 .gcm.json 换机器时解不开——解密器本身在仓库里，鸡生蛋。可运行包把工具一起带走，且包内只有凭据密文，对外可读是安全的"}
+{"id":"D-0013","date":"2026-11-13","decision":"offline.ps1 每次构建后自动空机自测：解包→校验 175 文件→装到临时空目录→核对 prompt-inject 字节数与 skills 数","why":"离线包是最后一道防线，它自己必须是验证过的；没跑通就不该出包"}

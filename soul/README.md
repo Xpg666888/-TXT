@@ -128,3 +128,34 @@ pwsh -File D:\YG-SOUL\soul\tools\verify.ps1 -Deep
 
 **升级原则**：先改本地 → 跑 `verify.ps1` 确认没破 → 再 `snapshot + push`。远端永远只接收「自检通过」的状态。
 **回滚原则**：任何一次推送前，`%USERPROFILE%\YG-SOUL-VAULT\` 里都有加密整包；坏了就解上一份。
+
+## 8. 离线包（断网 / 换机 / 账号没了都能复活）
+
+```powershell
+pwsh -File soul\tools\offline.ps1              # 造包（会先自动快照）
+pwsh -File soul\tools\offline.ps1 -Encrypt     # 额外出一份加密归档 + 独立解密器
+```
+
+产物落在 `%USERPROFILE%\YG-SOUL-VAULT\`：
+
+| 文件 | 用途 |
+|---|---|
+| `YG-SOUL-offline-<时间>.zip` | **可直接运行**的复活包：解压 → 双击 `START-HERE.cmd` → 校验 → 装回 |
+| `...zip.sha256.txt` | 指纹（抄进密码管理器，日后核实没被人换过） |
+| `...zip.gcm.json` + `OPEN-PACKAGE.ps1` | 加密归档：适合扔网盘；解密只需这一个 ps1，不依赖仓库 |
+
+包内结构：`START-HERE.cmd`（入口）/ `bootstrap.ps1`（自包含安装器）/ `HOW-TO-RESTORE.txt` /
+`PACKAGE-INFO.txt` / `soul\`（完整家当）/ `SOUL.md` / `.github\workflows\soul-verify.yml`（保持清单一致）。
+
+**包内没有明文密钥**——只有 `credentials.sealed.json` 密文。所以这个 zip 放 U 盘、塞网盘、发邮箱都行；
+真要「连内容也别让人看」，用 `-Encrypt` 那份。
+
+`offline.ps1` 每次构建都会自测：解包 → 校 175 个文件哈希 → 装到临时空目录 → 核对 `prompt-inject.md`
+字节数与 skills 数量。跑不通就不出包。
+
+**一键重建 + 换机自测**（建议每季度一次）：
+
+```powershell
+pwsh -File soul\tools\offline.ps1 -Encrypt
+# 然后把 zip 拷到另一台机器/虚拟机，双击 START-HERE.cmd，照屏幕走
+```
