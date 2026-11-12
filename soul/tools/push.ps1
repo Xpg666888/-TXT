@@ -29,16 +29,23 @@ function Get-Token {
     if ($env:GH_TOKEN) { return $env:GH_TOKEN }
     $f = Join-Path (Join-Path $env:USERPROFILE '.yg-soul') 'token'
     if (Test-Path $f) { return (Get-Content -LiteralPath $f -Raw).Trim() }
-    # 最后兜底：直接问系统凭据管理器（gh / Git Credential Manager 已登录就能用，不必再存一份明文）
+    # 兜底 1：gh 的 keyring 令牌（hosts.yml 里看不到 oauth_token，但 token 还在 keyring）
+    $old = $ErrorActionPreference
+    $ErrorActionPreference = 'SilentlyContinue'
     try {
-        $old = $ErrorActionPreference
-        $ErrorActionPreference = 'SilentlyContinue'
-        $in = "protocol=https`nhost=github.com`n`n"
-        $out = $in | git credential fill 2>$null
-        $ErrorActionPreference = $old
-        $pw = ($out | Where-Object { $_ -match '^password=' }) -replace '^password=', ''
-        if ($pw) { Write-Step '令牌来源：系统凭据管理器 (git credential fill)'; return $pw.Trim() }
+        $ghTok = (gh auth token 2>$null | Out-String).Trim()
+        if ($ghTok -match '^gh[opsu]_') { $ErrorActionPreference = $old; Write-Step '令牌来源：gh auth token'; return $ghTok }
     } catch { }
+    # 兜底 2：Git Credential Manager
+    try {
+        $tmp = Join-Path ([IO.Path]::GetTempPath()) 'yg-cred-in.txt'
+        [IO.File]::WriteAllText($tmp, "protocol=https`r`nhost=github.com`r`n`r`n", (New-Object Text.UTF8Encoding($false)))
+        $out = cmd /c "git credential fill < `"$tmp`" 2>nul"
+        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+        $pw = ($out | Where-Object { $_ -match '^password=' }) -replace '^password=', ''
+        if ($pw) { $ErrorActionPreference = $old; Write-Step '令牌来源：Git Credential Manager'; return $pw.Trim() }
+    } catch { }
+    $ErrorActionPreference = $old
     return $null
 }
 
@@ -107,7 +114,7 @@ if ($DryRun) {
     Write-Host "`n--- DRY RUN 计划（不写入远端）---" -ForegroundColor Yellow
     $plan | Select-Object -First 12 | ForEach-Object { "  {0}  {1,9}  {2}" -f $_.sha.Substring(0,10), $_.size, $_.path }
     Write-Host "  ... 共 $($plan.Count) 个 blob"
-    [IO.File]::WriteAllText((Join-Path $stage 'push-plan.json'), ($plan | ConvertTo-Json -Depth 4), (New-Object Text.UTF8Encoding($false)))
+    [IO.File]::WriteAllText((Join-Path ([IO.Path]::GetTempPath()) 'yg-soul-push-plan.json'), ($plan | ConvertTo-Json -Depth 4), (New-Object Text.UTF8Encoding($false)))
     Write-Ok "完整计划已写入 push-plan.json（可核对路径与哈希）"
     return
 }
