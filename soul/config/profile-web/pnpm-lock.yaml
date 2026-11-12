@@ -1,0 +1,61 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: false
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@local/kai-mcp':
+        specifier: link:E:/逆向/kai/bundle
+        version: link:../../../../kai/bundle
+      dsh-media-desk:
+        specifier: 2.7.0
+        version: 2.7.0
+      dsh-purge:
+        specifier: github:mmparko/dsh-purge
+        version: https://codeload.github.com/mmparko/dsh-purge/tar.gz/033e6bd1e0f101352b39075ecd0d758ffef26b76
+      dsh-purge-community:
+        specifier: github:kingcharleslzy-ai/dsh-purge
+        version: https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/eb4b505d1c959f8a579d8b66dd1bbc4fc7cdcb3b
+
+packages:
+
+  dsh-media-desk@2.7.0:
+    resolution: {integrity: sha512-qxJBg5zOwlUbANJu2RG8E2r4hqGd/XVa42z7zuIOxDLSlv1dkHn0x6wZG3Ta+I8KiFBf9wh7KfwRLCtoAwfr3g==}
+    engines: {dsh: '>=0.2.1-rc.5 <0.3.0', node: '>=20'}
+
+  dsh-purge-community@https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/eb4b505d1c959f8a579d8b66dd1bbc4fc7cdcb3b:
+    resolution: {gitHosted: true, integrity: sha512-D7mvL95T+ctnGmB2vERRDNbPmd3qI8ib8f8Ab5Qu9uC6t/COWpYdjdvXH0GNXtWmgeCbMPlS+E00FWR2BRy+tw==, tarball: https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/eb4b505d1c959f8a579d8b66dd1bbc4fc7cdcb3b}
+    version: 1.6.88
+    engines: {node: '>=18'}
+    hasBin: true
+    peerDependencies:
+      '@deepseek-ai/cordis': ^4.0.1
+
+  dsh-purge@https://codeload.github.com/mmparko/dsh-purge/tar.gz/033e6bd1e0f101352b39075ecd0d758ffef26b76:
+    resolution: {gitHosted: true, integrity: sha512-KeT95rIruOL+SSR/ruvCzf5YUuQmON1ftYG/y1R22FlcrsT4pypbERFrzB7sDYDZHEhtlNWklxUtb5I0Bkj2VQ==, tarball: https://codeload.github.com/mmparko/dsh-purge/tar.gz/033e6bd1e0f101352b39075ecd0d758ffef26b76}
+    version: 1.1.71
+    engines: {node: '>=18'}
+    hasBin: true
+    peerDependencies:
+      '@deepseek-ai/cordis': ^4.0.1
+
+  yaml@2.9.1:
+    resolution: {integrity: sha512-3NxN8+78OdzbT7C/WjGsyfPAtJaN3FNDsWxv7Y7mcDsT/oOmgW8BpyQQFFBnvZE3j9Y2Sdz1ULFLezL7Eb2yFw==}
+    engines: {node: '>= 14.6'}
+    hasBin: true
+
+snapshots:
+
+  dsh-media-desk@2.7.0: {}
+
+  dsh-purge-community@https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/eb4b505d1c959f8a579d8b66dd1bbc4fc7cdcb3b:
+    dependencies:
+      yaml: 2.9.1
+
+  dsh-purge@https://codeload.github.com/mmparko/dsh-purge/tar.gz/033e6bd1e0f101352b39075ecd0d758ffef26b76: {}
+
+  yaml@2.9.1: {}

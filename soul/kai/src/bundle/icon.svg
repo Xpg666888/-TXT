@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="kai capability kernel">
+  <defs>
+    <linearGradient id="kai-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#16233a"/>
+    </linearGradient>
+    <linearGradient id="kai-fg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5eead4"/>
+      <stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 3.5 55.7 17v30L32 60.5 8.3 47V17z" fill="url(#kai-bg)" stroke="url(#kai-fg)" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- K 的主干 -->
+  <path d="M22 20v24" stroke="url(#kai-fg)" stroke-width="5" stroke-linecap="round"/>
+  <!-- K 的两臂 -->
+  <path d="M43 20 27 32l16 12" stroke="url(#kai-fg)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- 账本节点：三颗表示 case/claim/evidence -->
+  <circle cx="45.5" cy="45" r="2.6" fill="#5eead4"/>
+  <circle cx="52" cy="40.5" r="2.6" fill="#38bdf8"/>
+  <circle cx="52" cy="49.5" r="2.6" fill="#38bdf8" opacity="0.75"/>
+</svg>

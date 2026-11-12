@@ -1,0 +1,13 @@
+{
+  "id": "pingping",
+  "created": "2026-11-11T07:57:22.175Z",
+  "targets": [
+    {
+      "path": "E:\\逆向\\瓶瓶下载器-复原\\_original\\瓶瓶下载器-1.2-最终版-新版UI客户端\\瓶瓶下载器.exe",
+      "sha256": "0cc758e4beaf31d82988560f7f51becf30302ae3e4bde4e2df960a1a90667a47",
+      "size": 62464,
+      "kind": "pe"
+    }
+  ],
+  "notes": ""
+}

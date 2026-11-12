@@ -1,0 +1,24 @@
+{
+  "name": "dsh-profile-web",
+  "private": true,
+  "dependencies": {
+    "@local/dsh-context-budget": "link:F:/H3工作流开发/plugins/context-budget",
+    "@local/kai-mcp": "link:E:/逆向/kai/bundle",
+    "dsh-media-desk": "2.7.0",
+    "dsh-purge": "github:mmparko/dsh-purge",
+    "dsh-purge-community": "github:kingcharleslzy-ai/dsh-purge"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "dsh-purge-community",
+        "@local/kai-mcp",
+        "dsh-purge",
+        "dsh-media-desk",
+        "@local/dsh-context-budget"
+      ]
+    }
+  }
+}

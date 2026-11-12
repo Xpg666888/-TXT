@@ -1,0 +1,74 @@
+{
+  "unit": {
+    "name": "workspace",
+    "version": 2
+  },
+  "global": {
+    "initialized": true,
+    "defaultWorkspaceId": "062997fb-eb74-4cba-a22c-514d5b65e9a1",
+    "workspaceIds": [
+      "aef1cba6-f663-40e7-936d-cee4da7fca82",
+      "062997fb-eb74-4cba-a22c-514d5b65e9a1",
+      "7c76ceed-b156-41cc-90f5-3852b4cd3bc9",
+      "7b7c2560-c434-48bd-b4ae-ab056ee69976"
+    ],
+    "archivedSessionIds": [],
+    "pinnedSessionIds": []
+  },
+  "tables": {
+    "workspaces": {
+      "7b7c2560-c434-48bd-b4ae-ab056ee69976": {
+        "path": "E:\\dhs",
+        "title": "AI短剧",
+        "sessionIds": [
+          "session-26e79ed2-2781-4c96-a9a4-0f407ada23ba",
+          "session-3ca21e12-1d39-4516-af85-d214190aadd4",
+          "session-a5684806-1687-4eba-b068-6c914afcb998",
+          "session-e7d8910b-dfbd-4589-810c-ada40f19bb41",
+          "session-6392d73a-1891-465f-8aa1-9ebd5a87eb19",
+          "session-9b4583b7-bf30-4c09-92d0-5073fa0fe514",
+          "session-45aaaada-6faa-47a4-92da-40826a9313a1"
+        ],
+        "createdAt": "2026-11-08T08:16:54.833Z",
+        "updatedAt": "2026-11-12T16:42:08.190Z"
+      },
+      "7c76ceed-b156-41cc-90f5-3852b4cd3bc9": {
+        "path": "E:\\逆向",
+        "title": "逆向",
+        "sessionIds": [
+          "session-e8768a9d-f916-43cc-93da-734bc6611bc2",
+          "session-2b0d5002-f820-411e-8e62-887c2c2d8e8c",
+          "session-cf0f2d9f-4fb3-4ea0-8433-55284f09dfc3",
+          "session-cd62d5b7-b5bd-4148-85b6-9c1131575fa9",
+          "session-1ce7c7fb-cd5b-469b-bf19-6345db6c686e",
+          "session-2430569b-7217-43ba-8435-a001f929b3d8"
+        ],
+        "createdAt": "2026-11-08T08:17:37.708Z",
+        "updatedAt": "2026-11-12T07:49:10.605Z"
+      },
+      "062997fb-eb74-4cba-a22c-514d5b65e9a1": {
+        "path": "E:\\逆向\\deepseek-harness",
+        "title": "deepseek-harness",
+        "sessionIds": [
+          "session-50e157b5-4123-44ba-8664-df3496b66f53",
+          "session-7fb481c7-b863-4d90-b377-b1c22f8d3623",
+          "session-bd4ea55a-3e86-4829-93d1-da7afb36b90f",
+          "session-982508c5-1c3e-446c-9e26-ef596376bd29",
+          "session-69822f98-a42a-4e40-90cf-f69ca084baa4"
+        ],
+        "createdAt": "2026-11-08T08:19:12.321Z",
+        "updatedAt": "2026-11-09T15:45:51.602Z"
+      },
+      "aef1cba6-f663-40e7-936d-cee4da7fca82": {
+        "path": "F:\\H3工作流开发",
+        "title": "H3工作流开发",
+        "sessionIds": [
+          "session-8c526ea9-7e9e-4917-a55e-3881a8288e6b",
+          "session-5aefe01f-79a8-4a09-9354-de9c70d95d3e"
+        ],
+        "createdAt": "2026-11-08T15:50:21.145Z",
+        "updatedAt": "2026-11-10T02:36:50.376Z"
+      }
+    }
+  }
+}

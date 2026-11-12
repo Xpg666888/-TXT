@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "kai 能力内核 (MCP)",
+    "description": "把逆向/破解/渗透的判据与账本接进会话：probe 静态深挖、dis 反汇编、patch+diff 补丁表、run 动态判据、case/claim/verify/report 记账本、kb 检索 103 个安全技能。"
+  }
+}

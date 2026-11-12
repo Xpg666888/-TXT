@@ -1,0 +1,5 @@
+{"id":"C001","ts":"2026-11-11T07:57:48.284Z","claim":"样本为 .NET 程序集（mscoree 导入 + .NET 元数据），破解应走 IL 层而非 x86 原生补丁","status":"verified","evidence":["E001"],"verified_at":"2026-11-11T07:57:48.480Z","verify_note":"kai probe ... --case pingping"}
+{"id":"C002","ts":"2026-11-11T07:57:48.332Z","claim":"授权逻辑位于 LicenseApi/ActivationForm/LoadToken/SaveToken，远端为 tcloudbase.com/bottle-v2","status":"verified","evidence":["E001"],"verified_at":"2026-11-11T07:57:48.529Z","verify_note":""}
+{"id":"C003","ts":"2026-11-11T07:57:48.380Z","claim":"免卡密版与原版不是同一构建：体积 62464→43008、738 段差异，属于重新编译而非定点字节补丁","status":"verified","evidence":["E002"],"verified_at":"2026-11-11T07:57:48.576Z","verify_note":"kai diff orig patched"}
+{"id":"C004","ts":"2026-11-11T07:57:48.432Z","claim":"本地校验点位于 .text 段，需定位 LicenseStatus 返回值分支后 patch","status":"inferred","evidence":[]}
+{"id":"C005","ts":"2026-11-11T08:00:41.812Z","claim":"工具链自检：.text+0xe00 处 2 字节替换可被 diff 精确定位到 VA 0x402e00，补丁可复现","status":"verified","evidence":["E004"],"verified_at":"2026-11-11T08:00:41.861Z","verify_note":"kai patch --offset 0x1000 --bytes 9090 && kai diff"}

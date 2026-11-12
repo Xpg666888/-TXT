@@ -1,0 +1,19 @@
+# kai 能力内核的 MCP 接入：把 probe / dis / diff / patch / run / case / claim / verify / report / kb 暴露成
+# mcp__kai__* 工具。stdio 传输，零依赖 Node 服务器，工作目录固定在内核根，避免相对路径漂移。
+- insert:
+    - id: kai-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: kai
+        transport: stdio
+        command: 'C:\Program Files\nodejs\node.exe'
+        args:
+          - 'E:\逆向\kai\mcp\kai-mcp.mjs'
+        cwd: 'E:\逆向\kai'
+        toolCallTimeoutMs: 300000
+        failOnStartupError: true
+        reconnect:
+          enabled: true
+          initialDelayMs: 500
+          maxDelayMs: 30000
+          maxAttempts: 10

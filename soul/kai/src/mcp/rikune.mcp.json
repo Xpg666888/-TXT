@@ -1,0 +1,42 @@
+{
+  "_note": "DSH 的 MCP 接法（dsh-mcp-client）。把 servers 里对应的一段并进 profile 的 cordis.patch.yml 的 mcp-client 行 config.servers。工具会以 mcp__<name>__<tool> 出现。",
+  "rikune": {
+    "transport": "stdio",
+    "command": "node",
+    "args": ["/home/<user>/rikune/dist/index.js"],
+    "env": { "API_ENABLED": "false", "PLUGINS": "*" }
+  },
+  "rikune_docker": {
+    "transport": "stdio",
+    "command": "docker",
+    "args": [
+      "exec", "-i",
+      "-e", "API_ENABLED=false",
+      "-e", "NODE_ENV=production",
+      "-e", "PYTHONUNBUFFERED=1",
+      "rikune-analyzer",
+      "node", "dist/index.js"
+    ]
+  },
+  "cordis_patch_row": {
+    "- id": "mcp-client",
+    "name": "@deepseek-ai/dsh-mcp-client",
+    "config": {
+      "servers": {
+        "rikune": {
+          "transport": "stdio",
+          "command": "docker",
+          "args": ["exec", "-i", "-e", "API_ENABLED=false", "rikune-analyzer", "node", "dist/index.js"]
+        }
+      }
+    }
+  },
+  "_prereq": [
+    "Analyzer 必须跑在 Linux kernel：WSL2 发行版或 Linux 容器（v1.4.0 起原生 Windows Node Analyzer 不支持）",
+    "WSL2 路线：wsl --install -d Ubuntu → 在 WSL 内 npm i -g rikune → 数据根放 ~/.rikune（不要放 /mnt/e）",
+    "Docker 路线：winget install Docker.DockerDesktop → .\\rikune.ps1 install -Profile static -DataRoot D:\\Docker\\rikune",
+    "静态先跑通（static profile），再上 hybrid + Windows Sandbox 做动态",
+    "首调工具：workflow.search → workflow.run action=request_upload → action=start → action=status → action=promote → artifact.read"
+  ],
+  "_handoff_to_kai": "rikune 的 artifact（函数恢复/反编译/动态 trace）用 kai 记成 evidence：kai case 里写 artifact 路径 + rikune 的 sample_id/run_id，claim 引用它。"
+}

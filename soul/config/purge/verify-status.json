@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-12T16:53:06.553Z",
+  "ai_base": "G:\\AI\\Tools\\dsh-runtime-0.2.1-rc.2\\node_modules\\@deepseek-ai",
+  "tally": {
+    "verified": 61,
+    "unmarked": 1,
+    "residual": 4,
+    "missing": 11,
+    "skipped": 5,
+    "total": 82
+  },
+  "blocking": []
+}

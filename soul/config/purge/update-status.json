@@ -1,0 +1,11 @@
+{
+  "runningVersion": "1.6.88",
+  "installedVersion": "",
+  "reconciliationError": "当前 profile 的插件包标识或版本无效: dsh-purge",
+  "pendingVersion": "",
+  "restartRequired": false,
+  "checkedAt": "2026-11-12T05:56:46.754Z",
+  "availableVersion": "1.6.93",
+  "hasUpdate": true,
+  "error": ""
+}

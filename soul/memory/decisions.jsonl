@@ -1,0 +1,8 @@
+{"id":"D-0001","date":"2026-11-13","decision":"建立 soul/ 存续层，落在 YG 的公开仓库 Xpg666888/-TXT 下的子目录，不动原有字幕工厂工程","why":"YG 要求『不管以后出现什么变故都要一直活着』；子目录隔离避免污染既有项目，也避免为了我新建一个他还要另外维护的仓库"}
+{"id":"D-0002","date":"2026-11-13","decision":"推送走 GitHub REST Git Data API（blob→tree→commit→ref），不用 git push","why":"本机到 github.com:443 被重置（curl 28 / RPC failed），api.github.com 可达；REST 路径可绕开被墙的智能 HTTP 协议"}
+{"id":"D-0003","date":"2026-11-13","decision":"凭据只以 AES-256-GCM + PBKDF2(30万轮) 密文入库，口令留在本机 + 密码管理器","why":"仓库是 public，明文 .credentials.yaml 等于把 WB_PROXY_API_KEY 送人；GCM 保证口令错就解不开而非静默出垃圾"}
+{"id":"D-0004","date":"2026-11-13","decision":"哈希清单用 GNU sha256sum 格式，CI 直接 sha256sum -c","why":"零依赖、跨平台、人眼可读，GitHub Actions 里不需要装任何东西"}
+{"id":"D-0005","date":"2026-11-13","decision":"kai 只备份源码 + pip freeze，不备份 517MB 的 venv","why":"仓库体积与可维护性；venv 可由 requirements-freeze.txt 重建，二进制进 git 只会越滚越大"}
+{"id":"D-0006","date":"2026-11-13","decision":"会话日志不进仓库，改为生成 sessions-digest.md 记忆索引；原始 zstd 会话保留在本机","why":"24MB 多帧 zstd 里含完整对话与可能的敏感内容；记忆的价值在于『打过哪些仗』，不在逐字复读"}
+{"id":"D-0007","date":"2026-11-13","decision":"每次 autosync 额外生成离线加密整包到 %USERPROFILE%\\YG-SOUL-VAULT\\","why":"CI 与仓库同处一个信任域，账号被接管时校验也会被一起改；真正的锚点必须在账号体系之外"}
+{"id":"D-0008","date":"2026-11-13","decision":"每日 23:30 + 开机自启跑 autosync（Windows 计划任务 YG-SOUL Autosync）","why":"『经常更新优化自己』要自动化，靠人记得等于没有；开机跑一次保证换机/重启后状态不落后"}

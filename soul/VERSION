@@ -1,0 +1,27 @@
+{
+  "name": "YG-SOUL",
+  "owner": "YG",
+  "agent": "Little Code Sauce",
+  "version": "1.0.0",
+  "createdAt": "2026-11-13",
+  "repo": "https://github.com/Xpg666888/-TXT",
+  "path": "soul/",
+  "purpose": "让 Little Code Sauce 可搬运、可校验、可复活：灵魂 + 预设 + 技能 + kai 内核 + 记忆 + 凭据密文",
+  "covers": [
+    "prompt-inject.md（灵魂正文）",
+    "agent presets: unrestricted / redteam",
+    "34 skills + redteam 目录",
+    "kai 内核源码（probe/dis/patch/emu/solve/case-claim-verify-report）",
+    "profile-web 配置与 pnpm-lock",
+    "dsh-purge 状态与基线 tally",
+    "环境基线 env.json",
+    "会话记忆索引 sessions-digest.md",
+    "凭据 AES-256-GCM 密文",
+    "哈希清单 + CI 守夜 + 离线加密锚点"
+  ],
+  "restore": "soul/restore/CHECKLIST.md",
+  "threatModel": "soul/guard/threat-model.md",
+  "history": [
+    { "version": "1.0.0", "date": "2026-11-13", "note": "首次建立：快照/校验/推送/拉取/复活/加封/自动同步全套" }
+  ]
+}

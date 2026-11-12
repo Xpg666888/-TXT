@@ -1,0 +1,48 @@
+name: soul-verify
+
+# 守夜人：每次有人往 soul/ 推东西，CI 重算哈希。
+# 作用不是防「仓库被完全接管」（那需要一个外部锚点，见 soul/guard/threat-model.md），
+# 而是防「手滑改动 / 半路被塞后门 / 忘带清单」。
+
+on:
+  push:
+    paths:
+      - 'soul/**'
+      - '.github/workflows/soul-verify.yml'
+  pull_request:
+    paths:
+      - 'soul/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 校验哈希清单
+        run: |
+          set -e
+          echo "清单条目：$(grep -c . soul/guard/manifest.sha256)"
+          if sha256sum -c soul/guard/manifest.sha256 --quiet; then
+            echo "### ✅ 清单一致：soul/ 未被篡改" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "### ❌ 清单不一致：有人改了 soul/ 却没更新 manifest" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+      - name: 明文密钥扫描（仅告警）
+        continue-on-error: true
+        run: |
+          echo "--- 可疑明文（只看模式，不看内容）---"
+          grep -rInE '(ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|sk-[A-Za-z0-9]{32,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----)' soul/ || echo "未发现"
+
+      - name: 灵魂存在性
+        run: |
+          set -e
+          test -s soul/prompt-inject.md || { echo "prompt-inject.md 不见了"; exit 1; }
+          test -s soul/identity.md      || { echo "identity.md 不见了";      exit 1; }
+          echo "prompt-inject.md 字节数：$(wc -c < soul/prompt-inject.md)"

@@ -1,0 +1,21 @@
+{
+  "orig": "E:\\逆向\\kai\\cases\\pingping\\artifacts\\demo-copy.exe",
+  "patched": "E:\\逆向\\kai\\cases\\pingping\\artifacts\\demo-patched.exe",
+  "shaA": "0cc758e4beaf31d82988560f7f51becf30302ae3e4bde4e2df960a1a90667a47",
+  "shaB": "461e6f0c8e7bc34c0500d5af5b67fc13e1e48095d12ab2fb4a8ed90ba45d79a5",
+  "ranges": [
+    {
+      "start": 4096,
+      "end": 4097
+    }
+  ],
+  "table": [
+    {
+      "offset": "0x1000",
+      "len": 2,
+      "section": ".text+0xe00 (va 0x402e00)",
+      "from": "0000",
+      "to": "9090"
+    }
+  ]
+}

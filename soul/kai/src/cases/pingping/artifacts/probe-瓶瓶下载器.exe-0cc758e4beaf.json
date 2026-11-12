@@ -1,0 +1,151 @@
+{
+  "tool": "kai.probe/1",
+  "file": "E:\\逆向\\瓶瓶下载器-复原\\_original\\瓶瓶下载器-1.2-最终版-新版UI客户端\\瓶瓶下载器.exe",
+  "size": 62464,
+  "sha256": "0cc758e4beaf31d82988560f7f51becf30302ae3e4bde4e2df960a1a90667a47",
+  "md5": "ca75bac252ce6760f1743eac2ba72f44",
+  "kind": "pe",
+  "pe": {
+    "machine": "0x14c",
+    "machine_name": "x86",
+    "characteristics": "0x102",
+    "timestamp": 1790395565,
+    "subsystem": 2,
+    "dll": false,
+    "image_base": "0x400000",
+    "entry_point_rva": "0x76be",
+    "size_of_image": 81920,
+    "checksum": "0x0",
+    "dll_characteristics": "0x8540",
+    "aslr": true,
+    "dep": true,
+    "cfg": false,
+    "imphash": "f34d5f2d4577ed6d9ceec516c1f5a744"
+  },
+  "sections": [
+    {
+      "name": ".text",
+      "vaddr": "0x2000",
+      "vsize": 22212,
+      "raw_offset": "0x200",
+      "raw_size": 22528,
+      "entropy": 5.818,
+      "exec": true,
+      "write": false,
+      "read": true
+    },
+    {
+      "name": ".rsrc",
+      "vaddr": "0x8000",
+      "vsize": 38488,
+      "raw_offset": "0x5a00",
+      "raw_size": 38912,
+      "entropy": 7.878,
+      "exec": false,
+      "write": false,
+      "read": true
+    },
+    {
+      "name": ".reloc",
+      "vaddr": "0x12000",
+      "vsize": 12,
+      "raw_offset": "0xf200",
+      "raw_size": 512,
+      "entropy": 0.082,
+      "exec": false,
+      "write": false,
+      "read": true
+    }
+  ],
+  "imports": {
+    "mscoree.dll": [
+      "_CorExeMain"
+    ]
+  },
+  "import_dll_count": 1,
+  "import_func_count": 1,
+  "api_categories": {},
+  "exports": [],
+  "export_count": 0,
+  "version_info": {
+    "FileDescription": "ç¶ç¶ä¸è½½å¨Â·æ°çå¡å¯ç",
+    "FileVersion": "1.2.0.0",
+    "InternalName": "ç¶ç¶ä¸è½½å¨.exe",
+    "LegalCopyright": " ",
+    "OriginalFilename": "ç¶ç¶ä¸è½½å¨.exe",
+    "ProductVersion": "1.2.0.0",
+    "Assembly Version": "1.2.0.0"
+  },
+  "has_tls": false,
+  "has_rich_header": false,
+  "has_signature": false,
+  "entry_bytes": "ff25002040000000000000000000000000000000000000000000000000000000",
+  "file_entropy": 7.32,
+  "strings": {
+    "total": 859,
+    "urls": [
+      "https://baofupingping-d9gdm5l3k08b1ef9f.service.tcloudbase.com/bottle-v2"
+    ],
+    "win_paths": [],
+    "interesting": [
+      "LicenseFailure",
+      "LicenseApi",
+      "ActivationForm",
+      "TokenPath",
+      "System.Web.Script.Serialization",
+      "JavaScriptSerializer",
+      "LoadToken",
+      "SaveToken",
+      "Activate",
+      "activate",
+      "Token",
+      "License",
+      "token",
+      "licenseStatusPath",
+      "SaveLicenseStatus",
+      "license",
+      "RegistryKey",
+      "RegistryHive",
+      "RegistryView",
+      "OpenBaseKey",
+      "OpenSubKey",
+      "<token>j__TPar",
+      "<token>i__Field",
+      "get_token",
+      "Serialize",
+      "Deserialize",
+      "ContainsKey",
+      "LicenseApi+<Call>d__0",
+      " ActivationForm+<<.ctor>b__3>d__9",
+      " ActivationForm+<<.ctor>b__4>d__c",
+      " ActivationForm+<<.ctor>b__5>d__f",
+      "ActivationForm+<Check>d__12",
+      "https://baofupingping-d9gdm5l3k08b1ef9f.service.tcloudbase.com/bottle-v2",
+      "SOFTWARE\\Microsoft\\Cryptography",
+      "MachineGuid",
+      "license.dat",
+      "{ token = ",
+      "/v1/",
+      "expires_at",
+      "ui-license-status.json",
+      "powershell.exe",
+      "-NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File \"",
+      "PINGPING_LICENSE_STATUS"
+    ]
+  },
+  "findings": [
+    {
+      "id": "high-entropy-section",
+      "severity": "medium",
+      "title": "section .rsrc entropy 7.88",
+      "detail": "packed / encrypted / compressed payload"
+    },
+    {
+      "id": "dotnet",
+      "severity": "info",
+      "title": ".NET assembly",
+      "detail": "use dnSpy/ilspy, not native RE"
+    }
+  ],
+  "severity_max": "medium"
+}
