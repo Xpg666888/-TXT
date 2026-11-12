@@ -6,3 +6,6 @@
 {"id":"D-0006","date":"2026-11-13","decision":"会话日志不进仓库，改为生成 sessions-digest.md 记忆索引；原始 zstd 会话保留在本机","why":"24MB 多帧 zstd 里含完整对话与可能的敏感内容；记忆的价值在于『打过哪些仗』，不在逐字复读"}
 {"id":"D-0007","date":"2026-11-13","decision":"每次 autosync 额外生成离线加密整包到 %USERPROFILE%\\YG-SOUL-VAULT\\","why":"CI 与仓库同处一个信任域，账号被接管时校验也会被一起改；真正的锚点必须在账号体系之外"}
 {"id":"D-0008","date":"2026-11-13","decision":"每日 23:30 + 开机自启跑 autosync（Windows 计划任务 YG-SOUL Autosync）","why":"『经常更新优化自己』要自动化，靠人记得等于没有；开机跑一次保证换机/重启后状态不落后"}
+{"id":"D-0009","date":"2026-11-13","decision":"推送令牌优先取环境变量/文件，其次用 git credential fill 向系统凭据管理器要，不复制 gh 的 OAuth token 到明文文件","why":"已在 Windows 凭据管理器里有 gh 登录态，复用它即可让每日 autosync 无人值守；少一处明文密钥就少一个泄漏面"}
+{"id":"D-0010","date":"2026-11-13","decision":"push.ps1 改为增量：先取远端 recursive tree，本地算 git blob sha 比对，只上传变化的 blob","why":"166 文件全量推要 166 次 API 调用、约 2 分钟；增量后日常只推 2-5 个 blob，几秒完成"}
+{"id":"D-0011","date":"2026-11-13","decision":"首次落地完成：提交 ecd5d39 -> 00d45ee -> c930b60，soul-verify 工作流三次全部 success","why":"证明 sha256 清单在 CI 侧可验证、远端内容与本地一致；后续任何未带清单的改动都会让 CI 变红"}
