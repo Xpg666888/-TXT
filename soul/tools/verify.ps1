@@ -8,6 +8,7 @@ param(
     [string]$Dsh,
     [string]$Password,
     [switch]$Deep,
+    [switch]$Remote,
     [switch]$Quiet
 )
 . (Join-Path $PSScriptRoot 'lib.ps1')
@@ -85,6 +86,21 @@ if (Test-Path $sealed) {
         Write-Step '凭据封装存在（-Deep 可验能否解开）'
     }
 } else { Write-Warn2 '没有 credentials.sealed.json —— 换机器会丢 API key' }
+
+# ---------- 4. 远端对照 ----------
+if ($Remote) {
+    try {
+        $api = 'https://api.github.com/repos/Xpg666888/-TXT/contents/soul/guard/manifest.sha256?ref=main'
+        $r2 = Invoke-RestMethod -Uri $api -Headers @{ 'User-Agent' = 'YG-SOUL/1.0'; 'Accept' = 'application/vnd.github+json' } -TimeoutSec 30
+        $remoteTxt = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(($r2.content -replace "`r", '' -replace "`n", '')))
+        $localTxt = [IO.File]::ReadAllText((Join-Path $soul 'guard\manifest.sha256'))
+        $rh = Get-Sha256 (Join-Path $soul 'guard\manifest.sha256')
+        $remoteNorm = ($remoteTxt -replace "`r`n", "`n").TrimEnd()
+        $localNorm  = ($localTxt  -replace "`r`n", "`n").TrimEnd()
+        if ($remoteNorm -eq $localNorm) { Write-Ok "远端与本地清单一致（本地 sha256=$($rh.Substring(0,12)))" }
+        else { Write-Warn2 '远端清单与本地不同（可能本地有未推送改动）'; $fail = $true }
+    } catch { Write-Warn2 "远端对照失败: $($_.Exception.Message)" }
+}
 
 Write-Host ''
 if ($fail) { Write-Err2 'VERIFY: 有漂移'; exit 1 } else { Write-Ok 'VERIFY: 干净'; exit 0 }

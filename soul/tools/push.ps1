@@ -29,6 +29,16 @@ function Get-Token {
     if ($env:GH_TOKEN) { return $env:GH_TOKEN }
     $f = Join-Path (Join-Path $env:USERPROFILE '.yg-soul') 'token'
     if (Test-Path $f) { return (Get-Content -LiteralPath $f -Raw).Trim() }
+    # 最后兜底：直接问系统凭据管理器（gh / Git Credential Manager 已登录就能用，不必再存一份明文）
+    try {
+        $old = $ErrorActionPreference
+        $ErrorActionPreference = 'SilentlyContinue'
+        $in = "protocol=https`nhost=github.com`n`n"
+        $out = $in | git credential fill 2>$null
+        $ErrorActionPreference = $old
+        $pw = ($out | Where-Object { $_ -match '^password=' }) -replace '^password=', ''
+        if ($pw) { Write-Step '令牌来源：系统凭据管理器 (git credential fill)'; return $pw.Trim() }
+    } catch { }
     return $null
 }
 
