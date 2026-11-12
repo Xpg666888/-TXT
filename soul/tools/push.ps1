@@ -114,15 +114,32 @@ if ($DryRun) {
 
 if (-not $tok) { throw '需要令牌：设置 $env:GITHUB_TOKEN，或写入 %USERPROFILE%\.yg-soul\token' }
 
-# ---------- 上传 blob ----------
+# ---------- 和远端树比对，只传变化的 blob ----------
+$remoteMap = @{}
+try {
+    $base = Invoke-Api "/repos/$Owner/$Repo/git/trees/$baseTree`?recursive=1"
+    foreach ($node in $base.tree) { if ($node.type -eq 'blob') { $remoteMap[$node.path] = $node.sha } }
+    Write-Step ("远端已有 blob: {0} 个，开始比对" -f $remoteMap.Count)
+} catch { Write-Warn2 "取远端树失败，退化为全量上传: $($_.Exception.Message)" }
+
 $tree = New-Object System.Collections.ArrayList
-$n = 0
+$n = 0; $up = 0; $same = 0
 foreach ($e in $entries) {
     $n++
+    $localSha = Get-GitBlobSha -Path $e.Full
+    if ($remoteMap.ContainsKey($e.Path) -and $remoteMap[$e.Path] -eq $localSha) { $same++; continue }
+    $up++
     $content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($e.Full))
     $blob = Invoke-Api "/repos/$Owner/$Repo/git/blobs" -Method POST -Body ([ordered]@{ content = $content; encoding = 'base64' })
     [void]$tree.Add([ordered]@{ path = $e.Path; mode = '100644'; type = 'blob'; sha = $blob.sha })
-    if ($n % 20 -eq 0 -or $n -eq $entries.Count) { Write-Host "  blob $n/$($entries.Count)" -ForegroundColor DarkGray }
+    if ($up % 20 -eq 0 -or $up -eq ($entries.Count - $same)) { Write-Host "  blob $up" -ForegroundColor DarkGray }
+    if ($n -ge $entries.Count) { break }
+}
+Write-Step ("比对完成：未变 {0} / 需上传 {1}" -f $same, $tree.Count)
+
+if ($tree.Count -eq 0) {
+    Write-Ok '远端已是最新，无需提交'
+    return
 }
 
 # ---------- tree / commit / ref ----------
